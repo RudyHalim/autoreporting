@@ -1,12 +1,12 @@
 <form id="reportform" method="GET">
 	<table class="reportform">
 		<?php
-			foreach ($config['type'] as $typecode => $typelabel) {
-				$id_typecode = str_replace(" ", "_", $typecode);
+			foreach ($config['type'] as $typelabel => $typearray) {
+				$id_typecode = str_replace(" ", "_", $typearray['reporttype']);
 				?>
 				<tr>
 					<td valign="top">
-						<input type="checkbox" name="<?=$id_typecode?>['chk']" id="<?=$id_typecode?>_chk" value="<?=$typecode?>" class="generatelink typecode" />
+						<input type="checkbox" name="<?=$id_typecode?>['chk']" id="<?=$id_typecode?>_chk" value="<?=$typearray['reporttype']?>" class="generatelink typecode" />
 					</td>
 					<td>
 						<label for="<?=$id_typecode?>_chk"><?=$typelabel?></label>

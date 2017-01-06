@@ -1,12 +1,27 @@
 <?php
 $config = array (
-	'phpscript' => array(
+	'gateway' => array(
+		'url' => 'http://123.123'
+	)
+	, 'phpscript' => array(
 		'url' => 'http://123.123/abc.php'
 	)
 	, 'type' => array (
-		'rEG meme 22' => 'Broadcast'
-		, 'ReG MemE XLV0' => 'Lv.0 XL'
-		, 'ReG MemE ALV0' => 'Lv.0 Axis'
-		, 'rEG meme 44' => 'PCN & MCA (UMB 44)'
+		'Broadcast'	=> array(
+			'reporttype' => 'rEG meme 22' 
+			, 'shelltype' => 'regmeme22m'
+		)
+		, 'Lv.0 XL'	=> array(
+			'reporttype' => 'ReG MemE XLV0' 
+			, 'shelltype' => 'xl_meme_lv0.php'
+		)
+		, 'Lv.0 Axis'	=> array(
+			'reporttype' => 'ReG MemE ALV0' 
+			, 'shelltype' => 'axis_meme_lv0.php'
+		)
+		, 'PCN & MCA (UMB 44)'	=> array(
+			'reporttype' => 'rEG meme 44' 
+			, 'shelltype' => 'regmeme44m'
+		)
 	)
 );

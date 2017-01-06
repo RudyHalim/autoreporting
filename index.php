@@ -3,7 +3,7 @@ include("config.php");
 ?>
 
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<h3>Generate Lingua Report</h3>
+<h3>Generate Auto Reporting</h3>
 
 <?php
 if(isset($_GET) && !empty($_GET)) {
