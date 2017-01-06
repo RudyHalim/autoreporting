@@ -43,10 +43,16 @@
 			var reporttype 	= $(this);
 			var startdate 	= $(this).parent().parent().find(".datetimefrom");
 			var enddate 	= $(this).parent().parent().find(".datetimeto");
+			var shelltype 	= $(this).parent().parent().find("input[type=hidden]");
 			var label 		= $(this).parent().parent().find("label");
 
 			if(reporttype.is(":checked")) {
-				tempurls.push(url + "?s=" + startdate.val() + "&e=" + enddate.val() + "&t=" + encodeURI(reporttype.val()) + "&l=" + encodeURI(label.html()));
+				tempurls.push(url + "?s=" + startdate.val() 
+					+ "&e=" + enddate.val() 
+					+ "&t=" + encodeURI(reporttype.val()) 
+					+ "&h=" + encodeURI(shelltype.val()) 
+					+ "&l=" + encodeURI(label.html())
+					);
 			} 
 		});
 		urls = tempurls;
