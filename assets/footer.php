@@ -1,9 +1,4 @@
 <script type="text/javascript">
-	
-	$(window).ready(function() {
-		$("#rEG_meme_22_chk").click();
-		$("#btnSubmit").click();
-	});
 
 	var hushurl 	= "<?=$config['phpscript']['hushurl']?>";
 	var hiturl 		= "<?=$config['phpscript']['hiturl']?>";
@@ -24,7 +19,6 @@
 					type: 'GET', 
 					url: urls[i], 
 					crossDomain: true, 
-					// data: form.serialize(), 
 					success: function(response) { 
 						message += response;
 						results.html(message);
@@ -64,7 +58,7 @@
 		}
 	});
 
-	$(".generatelink").bind('click keyup', function() {
+	$(".generatelink").bind('click keyup change', function() {
 
 		var tempurls 	  	= [];
 
