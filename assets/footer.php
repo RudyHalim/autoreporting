@@ -1,6 +1,12 @@
 <script type="text/javascript">
 	
-	var url 		= "<?=$config['phpscript']['url']?>";
+	$(window).ready(function() {
+		$("#rEG_meme_22_chk").click();
+		$("#btnSubmit").click();
+	});
+
+	var hushurl 	= "<?=$config['phpscript']['hushurl']?>";
+	var hiturl 		= "<?=$config['phpscript']['hiturl']?>";
 	var form 		= $("#reportform");
 	var results 	= $("#results");
 	var urls 		= [];
@@ -22,17 +28,40 @@
 					success: function(response) { 
 						message += response;
 						results.html(message);
+
+						// count hit if success given
+						var hitcol	 	= $(".divhit");
+
+						hitcol.each(function() {
+
+							var m = $(this).parent().find(".menu").html();
+							var d = $(this).parent().parent().find(".datetime").html();
+							var element = $(this);
+
+							$.ajax({ 
+								type: 'GET', 
+								url: hiturl, 
+								context: hitcol,
+								data: {
+									'm': m
+									, 'd': d
+								},
+								success: function(response) { 
+									element.html(response);
+								},
+								error: function() { 
+									element.html("Error: " + arguments);
+								} 
+							});
+						});
+
 					},
 					error: function() { 
 						results.html("Error: " + arguments); 
 					} 
-				})
-
+				});
 			}
-			
 		}
-
-
 	});
 
 	$(".generatelink").bind('click keyup', function() {
@@ -47,7 +76,7 @@
 			var label 		= $(this).parent().parent().find("label");
 
 			if(reporttype.is(":checked")) {
-				tempurls.push(url + "?s=" + startdate.val() 
+				tempurls.push(hushurl + "?s=" + startdate.val() 
 					+ "&e=" + enddate.val() 
 					+ "&t=" + encodeURI(reporttype.val()) 
 					+ "&h=" + encodeURI(shelltype.val()) 
@@ -57,6 +86,10 @@
 		});
 		urls = tempurls;
 		results.html(urls.join("<br />"));
-	})
+	});
+
+	$(document).ready(function() {
+		$(".datepicker").datepicker( { dateFormat: 'yymmdd' });
+	});
 
 </script>

@@ -17,5 +17,7 @@ if(isset($_GET) && !empty($_GET)) {
 <div id="results"></div>
 
 <script type="text/javascript" src="js/jquery.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 <?php include("assets/footer.php"); ?>

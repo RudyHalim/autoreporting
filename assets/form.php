@@ -11,8 +11,8 @@
 					<td>
 						<label for="<?=$id_typecode?>_chk"><?=$typelabel?></label>
 						<div>
-							<input type="text" name="<?=$id_typecode?>['from']" value="20170103" class="generatelink datetimefrom" /> to
-							<input type="text" name="<?=$id_typecode?>['to']" value="20170104" class="generatelink datetimeto" />
+							<input type="text" name="<?=$id_typecode?>['from']" value="20170103" class="generatelink datetimefrom datepicker" /> to
+							<input type="text" name="<?=$id_typecode?>['to']" value="20170104" class="generatelink datetimeto datepicker" />
 							<input type="hidden" name="<?=$id_typecode?>['shelltype']" value="<?=$typearray['shelltype']?>" />
 						</div>
 					</td>
