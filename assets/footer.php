@@ -17,6 +17,10 @@
 
 	$("#btnSubmit").click(function() {
 
+		var btnSubmit = $(this);
+		btnSubmit.val("Processing") // or: this.value = "processing";  
+		btnSubmit.prop('disabled', true); // no double submit ;)
+
 		if(Object.keys(urls).length > 0) {
 
 			for(var k in urls) {
@@ -51,9 +55,9 @@
 										, 'd': d
 									},
 									success: function(response) { 
-										// console.log("writing to ");
-										// console.log(element);
 										element.html(response);
+										btnSubmit.val("Submit Again");
+										btnSubmit.prop('disabled', false);
 									},
 									error: function() { 
 										console.log(arguments);
