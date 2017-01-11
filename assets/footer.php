@@ -1,66 +1,81 @@
 <script type="text/javascript">
 
+	$(document).ready(function() {
+		$(".datepicker").datepicker( { dateFormat: 'yymmdd' });
+
+		// $("#rEG_meme_22_chk").click();
+		// $("#ReG_MemE_XLV0_chk").click();
+		// $("#ReG_MemE_ALV0_chk").click();
+		// $("#rEG_meme_44_chk").click();
+		// $("#btnSubmit").click();
+	});
+
 	var hushurl 	= "<?=$config['phpscript']['hushurl']?>";
 	var hiturl 		= "<?=$config['phpscript']['hiturl']?>";
 	var form 		= $("#reportform");
-	var results 	= $("#results");
 	var urls 		= [];
 
 	$("#btnSubmit").click(function() {
 
-		results.html("Loading ...");
+		if(Object.keys(urls).length > 0) {
 
-		var message="";
-		if(urls.length > 0) {
-			
-			for(i=0;i<urls.length;i++) {
+			for(var k in urls) {
 
-				$.ajax({ 
-					type: 'GET', 
-					url: urls[i], 
-					crossDomain: true, 
-					success: function(response) { 
-						message += response;
-						results.html(message);
+				(function(key) {
+					$.ajax({ 
+						type: 'GET', 
+						url: urls[key], 
+						crossDomain: true, 
+						beforeSend: function() {
+							$("#" + key).html("Loading " + key + "...");
+						},
+						success: function(response) { 
 
-						// count hit if success given
-						var hitcol	 	= $(".divhit");
+							$("#" + key).html(response);
 
-						hitcol.each(function() {
+							// count hit if success given
+							var hitcol	 	= $(".divhit");
 
-							var m = $(this).parent().find(".menu").html();
-							var d = $(this).parent().parent().find(".datetime").html();
-							var element = $(this);
+							hitcol.each(function() {
 
-							$.ajax({ 
-								type: 'GET', 
-								url: hiturl, 
-								context: hitcol,
-								data: {
-									'm': m
-									, 'd': d
-								},
-								success: function(response) { 
-									element.html(response);
-								},
-								error: function() { 
-									element.html("Error: " + arguments);
-								} 
+								var m = $(this).parent().find(".menu").html();
+								var d = $(this).parent().parent().find(".datetime").html();
+								var element = $(this);
+
+								$.ajax({ 
+									type: 'GET', 
+									url: hiturl, 
+									context: hitcol,
+									data: {
+										'm': m
+										, 'd': d
+									},
+									success: function(response) { 
+										// console.log("writing to ");
+										// console.log(element);
+										element.html(response);
+									},
+									error: function() { 
+										console.log(arguments);
+									} 
+								});
 							});
-						});
 
-					},
-					error: function() { 
-						results.html("Error: " + arguments); 
-					} 
-				});
-			}
+						},
+						error: function() { 
+							console.log(arguments);
+							$("#" + key).html("Error: " + arguments); 
+						} 
+					});
+				})(k);
+
+			};
+		} else {
+			console.log("else");
 		}
 	});
 
 	$(".generatelink").bind('click keyup change', function() {
-
-		var tempurls 	  	= [];
 
 		$(".typecode").each(function() {
 			var reporttype 	= $(this);
@@ -70,20 +85,23 @@
 			var label 		= $(this).parent().parent().find("label");
 
 			if(reporttype.is(":checked")) {
-				tempurls.push(hushurl + "?s=" + startdate.val() 
-					+ "&e=" + enddate.val() 
-					+ "&t=" + encodeURI(reporttype.val()) 
-					+ "&h=" + encodeURI(shelltype.val()) 
-					+ "&l=" + encodeURI(label.html())
-					);
-			} 
+				
+				urls[jqid(shelltype.val())] = hushurl + "?s=" + startdate.val() 
+									+ "&e=" + enddate.val() 
+									+ "&t=" + encodeURI(reporttype.val()) 
+									+ "&h=" + encodeURI(shelltype.val()) 
+									+ "&l=" + encodeURI(label.html())
+									;
+				$("#" + jqid(shelltype.val())).html(urls[jqid(shelltype.val())]);
+			} else {
+				$("#" + jqid(shelltype.val())).html("");
+			}
 		});
-		urls = tempurls;
-		results.html(urls.join("<br />"));
 	});
 
-	$(document).ready(function() {
-		$(".datepicker").datepicker( { dateFormat: 'yymmdd' });
-	});
+	function jqid (id) {
+		// return (!id) ? null : id.replace(/(:|\.|\[|\]|,)/g, '\\$1');
+		return (!id) ? null : id.replace(".", "");
+	}
 
 </script>

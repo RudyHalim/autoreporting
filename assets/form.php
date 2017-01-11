@@ -11,8 +11,8 @@
 					<td>
 						<label for="<?=$id_typecode?>_chk"><?=$typelabel?></label>
 						<div>
-							<input type="text" name="<?=$id_typecode?>['from']" value="20170103" class="generatelink datetimefrom datepicker" /> to
-							<input type="text" name="<?=$id_typecode?>['to']" value="20170104" class="generatelink datetimeto datepicker" />
+							<input type="text" name="<?=$id_typecode?>['from']" value="20170105" class="generatelink datetimefrom datepicker" /> to
+							<input type="text" name="<?=$id_typecode?>['to']" value="20170105" class="generatelink datetimeto datepicker" />
 							<input type="hidden" name="<?=$id_typecode?>['shelltype']" value="<?=$typearray['shelltype']?>" />
 						</div>
 					</td>
@@ -27,3 +27,13 @@
 		</tr>
 	</table>
 </form>
+
+
+
+<?php
+	foreach ($config['type'] as $typelabel => $typearray) {
+		$id_typecode = str_replace(" ", "_", $typearray['shelltype']);
+		$id_typecode = str_replace(".", "", $id_typecode);
+		echo "<div id='".$id_typecode."'></div>";
+	}
+?>
